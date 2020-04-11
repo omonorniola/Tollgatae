@@ -1,0 +1,40 @@
+contract license check =
+
+  record license = {
+    police report:string,
+    voucher involce:string,
+    picture:string,
+    court afidafi:string }
+    
+  record state = {
+    licensePermit:map(string,license),
+    totalLicenseCount:int,
+    wearHouse:address }
+
+  entrypoint init() = {
+    license={},
+    totalLicenseCount=0,
+    wearHouse = Call.caller }
+
+  function requirement(exp : bool, err : string) =
+    if(!exp)
+        abort(err)
+
+  entrypoint onlywearHouse() : bool =
+    requirement(state.wearHouse ==ak_2FuPqTvcRSQaPznxboDKSQRJUpmBUGJz7nrWV1CmySbAf2FsDE, "Not Authorized")
+    true
+
+  entrypoint getTotalBookCount()=
+    state.totalBookCount
+  
+  stateful entrypoint addBook(licensePermit':string, policeReport':string, picture':string, courtAfidafi':string, vehicleNumber:string) =
+    onlylibrarian()
+    let newLicense = {licensePermit=licensePermit',policeReport=',picture=picture', courtAfidafi=courtAfidafi'}
+    let index = getTotalLicenseCount() + 1
+    put(state{books[isbn]=newBook,totalBookCount=index})
+    
+  entrypoint getBook(isbn)=
+    state.books[isbn]
+    
+  entrypoint getAllLicense()=
+    state.license
